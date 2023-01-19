@@ -27,3 +27,29 @@ def calculate_distance(x1, y1, x2, y2):
     except ValueError:
         print("Expects decimal values. Skipping...")
         return -1
+
+
+def main():
+    results = dict()
+    x_value, y_value, filename_url = parse_command()
+
+    data = read_data(filename_url)
+    for row in data:
+        name = row[0]
+        x_coordinate = row[1]
+        y_coordinate = row[2]
+        if not name or not x_coordinate or not y_coordinate:
+            print(f"Missing value in {row}. Skipping...")
+            continue
+
+        result = round(calculate_distance(x_value, y_value, float(row[1]), float(row[2])), 4)
+        if result != -1:
+            results[row[0]] = result
+
+    results = sorted(results.items(), key=lambda x: x[1])
+    for result in results[:3]:
+        print(result)
+
+
+if __name__ == '__main__':
+    main()
