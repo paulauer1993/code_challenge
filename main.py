@@ -12,3 +12,9 @@ def parse_command():
 
     args = parser.parse_args()
     return args.x, args.y, args.filename
+
+
+def read_data(url):
+    response = urlopen(url)
+    data = [line.decode('utf-8').strip("\n").split(",") for line in response.readlines()]
+    return data
